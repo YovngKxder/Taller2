@@ -1,0 +1,73 @@
+package taller2;
+
+import java.io.BufferedReader;
+
+import java.io.FileReader;
+
+import java.util.LinkedList;
+
+public class Main {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+		LinkedList<Habitat> listaHabitats = new LinkedList<Habitat>();
+		LinkedList<Pokemon> listaPokemones = new LinkedList<Pokemon>();
+
+		cargarHabitats("Habitats.txt", listaHabitats);
+		cargarPokemons("Pokedex.txt", listaPokemones);
+
+	}
+
+	public static void cargarHabitats(String ruta, LinkedList<Habitat> lista) {
+
+		try (BufferedReader br = new BufferedReader(new FileReader(ruta))) {
+			String line;
+			while ((line = br.readLine()) != null) {
+				if (!line.strip().isEmpty()) {
+					Habitat nuevoHabitat = new Habitat(line);
+
+					lista.add(nuevoHabitat);
+				}
+
+			}
+			br.close();
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+
+	}
+
+	public static void cargarPokemons(String ruta, LinkedList<Pokemon> lista) {
+		try (BufferedReader br = new BufferedReader(new FileReader(ruta))) {
+			String line;
+			while ((line = br.readLine()) != null) {
+				if (!line.strip().isEmpty()) {
+					String[] parts = line.split(";");
+					String nombre = parts[0];
+					String habitat = parts[1];
+					double porcentaje = Double.parseDouble(parts[2]);
+					int vida = Integer.parseInt(parts[3]);
+					int ataque = Integer.parseInt(parts[4]);
+					int defensa = Integer.parseInt(parts[5]);
+					int atqEsp = Integer.parseInt(parts[6]);
+					int defEsp = Integer.parseInt(parts[7]);
+					int velocidad = Integer.parseInt(parts[8]);
+					String tipo = parts[9];
+
+					if (parts.length == 10) {
+						Pokemon nuevoPokemon = new Pokemon(nombre, habitat, porcentaje, vida, ataque, defensa, atqEsp,
+								defEsp, velocidad, tipo);
+						lista.add(nuevoPokemon);
+					}
+
+				}
+
+			}
+			br.close();
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+
+	}
+}
