@@ -7,18 +7,45 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 
 import java.util.LinkedList;
+import java.util.Random;
+import java.util.Scanner;
 
 public class Main {
+	static Scanner sc = new Scanner(System.in);
+	static LinkedList<Pokemon> listaPokemonsJugador = new LinkedList<Pokemon>();
+	static LinkedList<Habitat> listaHabitats = new LinkedList<Habitat>();
+	static LinkedList<Pokemon> listaPokemones = new LinkedList<Pokemon>();
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 
-		LinkedList<Habitat> listaHabitats = new LinkedList<Habitat>();
-		LinkedList<Pokemon> listaPokemones = new LinkedList<Pokemon>();
-
 		cargarHabitats("Habitats.txt", listaHabitats);
 		cargarPokemons("Pokedex.txt", listaPokemones);
 
+		System.out.println("Bienvenido!\n");
+		String opcion;
+		do {
+			System.out.println("1) Continuar.");
+			System.out.println("2) Nueva Partida.");
+			System.out.println("3) Salir. ");
+			System.out.print("> ");
+			opcion = sc.next();
+			switch (opcion) {
+			case "1":
+
+				break;
+
+			case "2":
+				menuNuevaPartida();
+				break;
+
+			default:
+				break;
+			}
+
+		} while (!opcion.equals("3"));
+
+		sc.close();
 	}
 
 	public static void cargarHabitats(String ruta, LinkedList<Habitat> lista) {
@@ -70,6 +97,80 @@ public class Main {
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
+
+	}
+
+	public static void menuNuevaPartida() {
+
+		System.out.print("Ingrese su apodo de jugador: ");
+		String jugador = sc.nextLine();
+		Persona nombreCuenta = new Persona(jugador, listaPokemonsJugador);
+		sc.nextLine();
+		String opcion;
+		do {
+			System.out.println("\n1) Revisar equipo.");
+			System.out.println("2) Salir a capturar.");
+			System.out.println("3) Acceso al PC (cambiar Pokémon del equipo).");
+			System.out.println("4) Retar un gimnasio.");
+			System.out.println("5) Desafío al Alto Mando.");
+			System.out.println("6) Curar Pokémon.");
+			System.out.println("7) Guardar.");
+			System.out.println("8) Guardar y Salir.");
+			System.out.print("> ");
+			opcion = sc.next();
+			switch (opcion) {
+			case "1":
+
+				break;
+			case "2":
+				System.out.println("Donde deseas ir a explorar?\n");
+				System.out.println("Zonas disponibles:\n");
+				int i = 1;
+				for (Habitat habitat : listaHabitats) {
+					System.out.println(i + ") " + habitat);
+					i++;
+					if (i == 7) {
+						System.out.println(i + ") Volver al menu.");
+					}
+				}
+				sc.nextLine();
+				System.out.println("Ingrese una zona: ");
+				int opcionZona = sc.nextInt();
+				Habitat habitatSeleccionado = listaHabitats.get(opcionZona - 1);
+
+				for (Pokemon p : listaPokemones) {
+
+					if (habitatSeleccionado.toString().equals(p.getHabitat())) {
+
+					}
+
+				}
+
+			case "3":
+
+				break;
+			case "4":
+
+				break;
+			case "5":
+
+				break;
+			case "6":
+
+				break;
+			case "7":
+
+				break;
+			case "8":
+
+				break;
+			default:
+
+				break;
+			}
+		} while (!opcion.equals("8"));
+
+		System.out.println(nombreCuenta.toString());
 
 	}
 }
